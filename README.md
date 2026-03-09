@@ -17,7 +17,7 @@ npm install
 In your [Supabase Dashboard](https://supabase.com/dashboard) → **SQL Editor**, run the migration:
 
 - Open `supabase/migrations/001_stores_and_coupons.sql`
-- Copy its contents and run in the SQL Editor (for project `xpazoabxehvsldzgvbrr`)
+- Copy its contents and run in the SQL Edisstor (for project `xpazoabxehvsldzgvbrr`)
 
 This creates `public.stores` and `public.coupons` tables.
 
