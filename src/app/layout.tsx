@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     description: DEFAULT_DESCRIPTION,
   },
   icons: {
-    icon: "/icon.png",
-    apple: "/icon.png",
-    shortcut: "/icon.png",
+    icon: "/couponRO%20Fav%20icon.png",
+    apple: "/couponRO%20Fav%20icon.png",
+    shortcut: "/couponRO%20Fav%20icon.png",
   },
 };
 
