@@ -50,6 +50,7 @@ export default function Footer() {
                 <li><Link href="/privacy" className="text-gray-600 hover:text-[#34C759] transition-colors">Privacy Policy</Link></li>
                 <li><Link href="/ccpa" className="text-gray-600 hover:text-[#34C759] transition-colors">CCPA Privacy Notice</Link></li>
                 <li><Link href="/terms" className="text-gray-600 hover:text-[#34C759] transition-colors">Terms of Use</Link></li>
+                <li><Link href="/imprint" className="text-gray-600 hover:text-[#34C759] transition-colors">Imprint</Link></li>
                 <li><Link href="/accessibility" className="text-gray-600 hover:text-[#34C759] transition-colors">Accessibility</Link></li>
                 <li><Link href="/categories" className="text-gray-600 hover:text-[#34C759] transition-colors">Categories</Link></li>
               </ul>
@@ -72,8 +73,6 @@ export default function Footer() {
               <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide mb-4">Get in Touch</h3>
               <ul className="space-y-3 text-sm">
                 <li><Link href="/support" className="text-gray-600 hover:text-[#34C759] transition-colors">Support & Feedback</Link></li>
-                <li><a href="https://x.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-[#34C759] transition-colors">X</a></li>
-                <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-[#34C759] transition-colors">Facebook</a></li>
                 <li><Link href="/contact" className="text-gray-600 hover:text-[#34C759] transition-colors">Contact Us</Link></li>
                 <li><Link href="/careers" className="text-gray-600 hover:text-[#34C759] transition-colors">Careers</Link></li>
               </ul>
@@ -100,6 +99,7 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <Link href="/imprint" className="hover:text-white transition-colors">Imprint</Link>
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
           </div>
         </div>

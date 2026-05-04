@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getStores, getCoupons, slugify } from "@/lib/stores";
+import { getStores, getCouponsRaw, slugify } from "@/lib/stores";
 import { getBlogSlugForStore } from "@/lib/blog-posts";
 import type { Store } from "@/types/store";
 import Header from "@/components/Header";
@@ -60,7 +60,8 @@ async function getStoreData(slug: string): Promise<{
   otherStores: Store[];
 }> {
   const raw = slug.toLowerCase().trim();
-  const [stores, coupons] = await Promise.all([getStores(), getCoupons()]);
+  // Fresh coupons from DB — avoids unstable_cache occasionally serving stale/empty lists on hard refresh (serverless).
+  const [stores, coupons] = await Promise.all([getStores(), getCouponsRaw()]);
   const enabledStores = stores.filter((s) => s.status !== "disable");
   const store = enabledStores.find(
     (s) =>

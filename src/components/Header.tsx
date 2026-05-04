@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import HeaderPromoStrip from "./HeaderPromoStrip";
+import HeaderStoreSearch from "./HeaderStoreSearch";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -84,37 +85,7 @@ export default function Header() {
 
           {/* Desktop search */}
           <div className="hidden md:flex flex-1 items-center justify-end min-w-0 max-w-xs">
-            <form
-              action="/stores"
-              method="GET"
-              className="w-full max-w-[220px] flex rounded-full border border-gray-200 bg-gray-50 focus-within:bg-white focus-within:border-[#34C759] focus-within:ring-2 focus-within:ring-[#34C759]/20 transition-all"
-            >
-              <input
-                type="search"
-                name="q"
-                placeholder="Search stores..."
-                className="flex-1 min-w-0 rounded-l-full bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none"
-              />
-              <button
-                type="submit"
-                aria-label="Search"
-                className="rounded-r-full bg-[#34C759] px-4 py-2.5 text-white hover:bg-[#2db34d] transition-colors flex-shrink-0"
-              >
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-            </form>
+            <HeaderStoreSearch variant="desktop" />
           </div>
 
           {/* Mobile menu button */}
@@ -204,33 +175,7 @@ export default function Header() {
             })}
           </nav>
           <div className="mt-6 pt-6 border-t border-gray-200">
-            <form action="/stores" method="GET" className="flex gap-0">
-              <input
-                type="search"
-                name="q"
-                placeholder="Search stores..."
-                className="flex-1 min-w-0 rounded-l-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#34C759]/30 focus:border-[#34C759]"
-              />
-              <button
-                type="submit"
-                aria-label="Search"
-                className="rounded-r-lg bg-[#34C759] px-4 py-3 text-white hover:bg-[#2db34d] transition-colors flex-shrink-0"
-              >
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-            </form>
+            <HeaderStoreSearch variant="mobile" onPickStore={() => setMenuOpen(false)} />
           </div>
         </div>
       </div>

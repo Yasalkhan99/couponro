@@ -1,17 +1,25 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import StudioRedirect from "./StudioRedirect";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Sanity Studio | SeemPromo",
   robots: "noindex, nofollow",
 };
 
+const LOCAL_STUDIO_URL = "http://localhost:3333/studio";
+
 function getStudioUrl(): string | null {
-  const raw = process.env.NEXT_PUBLIC_SANITY_STUDIO_URL?.trim();
-  if (!raw) return null;
+  // Local par seedha local Studio (3333) kholo
+  if (process.env.NODE_ENV === "development") {
+    return LOCAL_STUDIO_URL;
+  }
   try {
+    const raw = process.env.NEXT_PUBLIC_SANITY_STUDIO_URL?.trim();
+    if (!raw) return null;
     const u = new URL(raw);
-    return u.origin && (u.protocol === "https:" || u.protocol === "http:") ? raw : null;
+    return u.protocol === "https:" || u.protocol === "http:" ? raw : null;
   } catch {
     return null;
   }
@@ -19,16 +27,21 @@ function getStudioUrl(): string | null {
 
 export default function StudioPage() {
   const studioUrl = getStudioUrl();
+
   if (studioUrl) {
-    redirect(studioUrl);
+    return <StudioRedirect url={studioUrl} />;
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-slate-100 px-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-lg border border-slate-200 p-8 text-center">
-        <h1 className="text-xl font-bold text-slate-800 mb-2">Sanity Studio</h1>
-        <p className="text-slate-600 text-sm mb-6">
-          Studio.
+    <div
+      id="studio-page"
+      className="min-h-screen flex flex-col items-center justify-center px-4"
+      style={{ backgroundColor: "#f1f5f9" }}
+    >
+      <div className="max-w-md w-full bg-white rounded-2xl shadow-lg border border-slate-200 p-8 text-center" style={{ color: "#1e293b" }}>
+        <h1 className="text-xl font-bold mb-2" style={{ color: "#1e293b" }}>Sanity Studio</h1>
+        <p className="text-sm mb-6" style={{ color: "#475569" }}>
+          Studio abhi is URL par set nahi. Neeche se local chalao ya deploy karke URL set karo.
         </p>
         <div className="bg-slate-50 rounded-xl p-4 text-left text-sm text-slate-700 font-mono mb-6">
           <p className="font-semibold text-slate-800 mb-2">Local par chalane ke liye:</p>

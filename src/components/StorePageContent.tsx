@@ -56,6 +56,12 @@ export default function StorePageContent({
   const [sortBy, setSortBy] = useState<SortBy>("newest");
   const [filterCategory, setFilterCategory] = useState<FilterCategory>("all");
 
+  // Reset filters when store changes; avoids browser form restoration / bfcache leaving "Expired" or "Coupons only" on refresh.
+  useEffect(() => {
+    setSortBy("newest");
+    setFilterCategory("all");
+  }, [slug]);
+
   useEffect(() => {
     if (!initialPopupId?.trim()) return;
     const c = storeCoupons.find((x) => (x.id ?? "").trim() === initialPopupId.trim());
@@ -133,8 +139,12 @@ export default function StorePageContent({
               </p>
             </div>
 
-            {/* Filter Store */}
-            <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+            {/* Filter Store — unique radio names per slug + autocomplete off so refresh does not restore a hidden "Expired"/"Coupons" filter */}
+            <form
+              className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
+              autoComplete="off"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <h2 className="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3">Filter Store</h2>
               <p className="text-xs font-semibold text-gray-700 mb-2">Categories</p>
               <div className="space-y-2 mb-4">
@@ -146,7 +156,7 @@ export default function StorePageContent({
                   <label key={value} className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="radio"
-                      name="filter-store"
+                      name={slug ? `filter-${slug}` : "filter-store"}
                       checked={filterCategory === value}
                       onChange={() => setFilterCategory(value)}
                       className="w-4 h-4 text-[#34C759] border-gray-300 focus:ring-[#34C759]"
@@ -166,7 +176,7 @@ export default function StorePageContent({
                   <label key={value} className="flex items-center gap-2 cursor-pointer">
                     <input
                       type="radio"
-                      name="sort-store"
+                      name={slug ? `sort-${slug}` : "sort-store"}
                       checked={sortBy === value}
                       onChange={() => setSortBy(value)}
                       className="w-4 h-4 text-[#34C759] border-gray-300 focus:ring-[#34C759]"
@@ -175,7 +185,7 @@ export default function StorePageContent({
                   </label>
                 ))}
               </div>
-            </div>
+            </form>
 
             {/* Related Stores */}
             {otherStores.length > 0 && (
