@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DEFAULT_BLOG_POST_URL } from "@/lib/blog-posts";
 import type { Store } from "@/types/store";
+import StoreLogo from "@/components/StoreLogo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -275,14 +276,8 @@ function FreeShippingFeaturedCard({ store, size, onStoreClick }: { store: Store;
         FREE SHIPPING
       </span>
       <div className={`flex flex-col items-center ${isLarge ? "gap-4" : "gap-3"}`}>
-        <div className={`rounded-xl bg-almond overflow-hidden flex items-center justify-center ring-2 ring-white/80 ${isLarge ? "w-24 h-24" : "w-20 h-20"}`}>
-          {store.logoUrl ? (
-            <img src={store.logoUrl} alt={store.name ?? ""} className="w-full h-full object-contain p-1" />
-          ) : (
-            <span className={`font-bold text-rebecca ${isLarge ? "text-3xl" : "text-xl"}`}>
-              {store.name?.charAt(0) ?? "?"}
-            </span>
-          )}
+        <div className="flex justify-center ring-2 ring-white/80 rounded-xl bg-almond p-1">
+          <StoreLogo name={store.name ?? "?"} logoUrl={store.logoUrl} size={isLarge ? "2xl" : "xl"} rounded="xl" />
         </div>
         <span className={`font-bold text-space text-center ${isLarge ? "text-lg" : "text-base"}`}>
           {store.name ?? "–"}
@@ -302,12 +297,8 @@ function FreeShippingRow({ store, onStoreClick }: { store: Store; onStoreClick?:
   return (
     <li className="flex flex-col sm:flex-row gap-5 items-start sm:items-center p-5 sm:p-6 border-b border-rebecca/10 last:border-b-0 hover:bg-almond/40 transition-colors">
       <Link href={`/stores/${encodeURIComponent(slug)}`} onClick={onStoreClick} className="flex items-center gap-5 flex-1 min-w-0 group">
-        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-almond flex items-center justify-center overflow-hidden flex-shrink-0 ring-2 ring-white shadow-md group-hover:ring-soft-cyan/40 transition-all">
-          {store.logoUrl ? (
-            <img src={store.logoUrl} alt={store.name ?? ""} className="w-full h-full object-contain p-1" />
-          ) : (
-            <span className="text-2xl sm:text-3xl font-bold text-rebecca">{store.name?.charAt(0) ?? "?"}</span>
-          )}
+        <div className="flex-shrink-0 rounded-2xl bg-almond p-1 ring-2 ring-white shadow-md group-hover:ring-soft-cyan/40 transition-all">
+          <StoreLogo name={store.name ?? "?"} logoUrl={store.logoUrl} size="xl" rounded="xl" />
         </div>
         <div className="min-w-0">
           <p className="font-bold text-space text-lg sm:text-xl truncate">{store.name ?? "–"}</p>

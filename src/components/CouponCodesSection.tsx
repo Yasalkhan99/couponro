@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { Store } from "@/types/store";
+import StoreLogo from "@/components/StoreLogo";
 
 type Props = {
   coupons: Store[];
@@ -90,13 +91,7 @@ function CouponCodeCard({
       <div className="flex flex-col sm:flex-row gap-4 p-4 sm:p-5">
         {/* Left: logo + discount */}
         <div className="flex sm:flex-col items-center sm:items-start gap-3 sm:w-28 flex-shrink-0">
-          <div className="w-14 h-14 rounded-lg bg-slate-100 flex items-center justify-center overflow-hidden shrink-0">
-            {logoUrl ? (
-              <img src={logoUrl} alt={coupon.name ?? ""} className="w-full h-full object-contain" />
-            ) : (
-              <span className="text-lg font-bold text-slate-500">{coupon.name?.charAt(0) ?? "?"}</span>
-            )}
-          </div>
+          <StoreLogo name={coupon.name ?? "?"} logoUrl={logoUrl} size="md" rounded="lg" />
           <div>
             <p className="text-xl font-bold text-[#1e88e5] leading-tight">{discountStr}</p>
             <p className="text-xs text-slate-500 mt-0.5">OFF</p>

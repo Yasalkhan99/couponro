@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { Store } from "@/types/store";
+import StoreLogo from "@/components/StoreLogo";
 
 type Props = {
   coupon: Store;
@@ -46,12 +47,8 @@ export default function CouponCard({ coupon, variant = "compact", storeLogoUrl }
         href={`/stores/${encodeURIComponent(slug)}`}
         className="group rounded-2xl border-0 bg-white p-6 shadow-md hover:shadow-lg transition-all flex flex-col items-center text-center min-h-[200px] justify-between"
       >
-        <div className="w-20 h-20 rounded-xl bg-almond flex items-center justify-center overflow-hidden shrink-0">
-          {logoUrl ? (
-            <img src={logoUrl} alt={coupon.name} className="w-full h-full object-contain" />
-          ) : (
-            <span className="text-2xl font-bold text-rebecca">{coupon.name?.charAt(0) ?? "?"}</span>
-          )}
+        <div className="flex shrink-0 justify-center">
+          <StoreLogo name={coupon.name ?? "?"} logoUrl={logoUrl} size="xl" rounded="xl" />
         </div>
         <p className="text-sm font-medium text-rebecca mt-2">{coupon.name ?? "–"}</p>
         <p className="text-base font-bold text-space mt-0.5 line-clamp-2">{offerText}</p>
@@ -65,12 +62,8 @@ export default function CouponCard({ coupon, variant = "compact", storeLogoUrl }
         href={`/stores/${encodeURIComponent(slug)}`}
         className="flex flex-col flex-1 p-4 items-center text-center"
       >
-        <div className="w-14 h-14 rounded-lg bg-almond flex items-center justify-center overflow-hidden shrink-0">
-          {logoUrl ? (
-            <img src={logoUrl} alt={coupon.name} className="w-full h-full object-contain" />
-          ) : (
-            <span className="text-lg font-bold text-rebecca">{coupon.name?.charAt(0) ?? "?"}</span>
-          )}
+        <div className="flex shrink-0 justify-center">
+          <StoreLogo name={coupon.name ?? "?"} logoUrl={logoUrl} size="xl" rounded="lg" />
         </div>
         <p className="text-xs font-medium text-rebecca mt-2">{coupon.name ?? "–"}</p>
       </Link>

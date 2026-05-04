@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -24,6 +25,34 @@ const HERO_CARDS = [
   { img: HERO_IMGS[2], title: "Coupon codes", href: DEFAULT_BLOG_POST_URL },
 ];
 
+function CoverImage({
+  src,
+  alt,
+  sizes,
+  priority,
+  quality = 68,
+  className = "object-cover group-hover:scale-105 transition-transform duration-300",
+}: {
+  src: string;
+  alt: string;
+  sizes: string;
+  priority?: boolean;
+  quality?: number;
+  className?: string;
+}) {
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      sizes={sizes}
+      priority={priority}
+      quality={quality}
+      className={className}
+    />
+  );
+}
+
 export default function HomeNirvanaContent() {
   return (
     <div className="min-h-screen w-full min-w-0 bg-gray-50 flex flex-col overflow-x-hidden max-w-[100vw]">
@@ -32,16 +61,18 @@ export default function HomeNirvanaContent() {
       <main className="flex-1 w-full min-w-0 px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         {/* Hero – 3 cards, new shape & layout */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10" aria-label="Featured">
-          {HERO_CARDS.map(({ img, title, href }) => (
+          {HERO_CARDS.map(({ img, title, href }, i) => (
             <Link
               key={title}
               href={href}
               className="group relative block aspect-[4/3] sm:aspect-[3/2] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
             >
-              <img
+              <CoverImage
                 src={img}
                 alt={title}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                sizes="(max-width: 767px) 100vw, 33vw"
+                priority={i === 0}
+                quality={65}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
@@ -58,10 +89,11 @@ export default function HomeNirvanaContent() {
             href={DEFAULT_BLOG_POST_URL}
             className="group relative block aspect-[16/10] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
           >
-            <img
+            <CoverImage
               src={IMG_950[0]}
               alt="Blog post"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 1023px) 100vw, 50vw"
+              quality={65}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-5">
@@ -73,10 +105,11 @@ export default function HomeNirvanaContent() {
             href={DEFAULT_BLOG_POST_URL}
             className="group relative block aspect-[16/10] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
           >
-            <img
+            <CoverImage
               src={IMG_950[1]}
               alt="Trending"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 1023px) 100vw, 50vw"
+              quality={65}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between">
@@ -94,7 +127,13 @@ export default function HomeNirvanaContent() {
         {/* Three cols – quote, stores, coupons */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-10">
           <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md">
-            <img src={IMG_634[0]} alt="" className="absolute inset-0 w-full h-full object-cover" />
+            <CoverImage
+              src={IMG_634[0]}
+              alt=""
+              sizes="(max-width: 767px) 100vw, 33vw"
+              quality={68}
+              className="object-cover"
+            />
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center p-6">
               <blockquote className="text-center">
                 <p className="text-white font-medium italic">&ldquo;Saving tips &amp; deals&rdquo;</p>
@@ -106,10 +145,11 @@ export default function HomeNirvanaContent() {
             href={STORES_BLOG_POST_URL}
             className="group relative block aspect-[4/3] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
           >
-            <img
+            <CoverImage
               src={IMG_950[0]}
               alt="Stores"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 767px) 100vw, 33vw"
+              quality={65}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -121,10 +161,11 @@ export default function HomeNirvanaContent() {
             href={DEFAULT_BLOG_POST_URL}
             className="group relative block aspect-[4/3] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
           >
-            <img
+            <CoverImage
               src={IMG_950[1]}
               alt="Coupons"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 767px) 100vw, 33vw"
+              quality={65}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -140,10 +181,11 @@ export default function HomeNirvanaContent() {
             href={DEFAULT_BLOG_POST_URL}
             className="group relative block aspect-[21/9] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
           >
-            <img
+            <CoverImage
               src={IMG_FULLWIDTH}
               alt="Blog"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="100vw"
+              quality={62}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
@@ -159,10 +201,11 @@ export default function HomeNirvanaContent() {
             href={FREE_SHIPPING_BLOG_POST_URL}
             className="group relative block aspect-[16/10] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
           >
-            <img
+            <CoverImage
               src={IMG_950[2]}
               alt="Free Shipping"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 1023px) 100vw, 50vw"
+              quality={65}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-5">
@@ -174,10 +217,11 @@ export default function HomeNirvanaContent() {
             href={DEALS_BLOG_POST_URL}
             className="group relative block aspect-[16/10] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow"
           >
-            <img
+            <CoverImage
               src={IMG_950[3]}
               alt="Deals"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 1023px) 100vw, 50vw"
+              quality={68}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-5">
@@ -195,14 +239,18 @@ export default function HomeNirvanaContent() {
               <Link
                 key={i}
                 href={FOOTER_TILE_BLOG_URLS[i]}
-                className="group block rounded-xl overflow-hidden border border-gray-200 hover:border-[#34C759]/50 hover:shadow-md transition-all aspect-square"
+                className="group relative flex flex-col aspect-square rounded-xl overflow-hidden border border-gray-200 hover:border-[#34C759]/50 hover:shadow-md transition-all"
               >
-                <img
-                  src={IMG_190[i]}
-                  alt=""
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <span className="block p-2 text-xs font-medium text-gray-700 group-hover:text-[#34C759] text-center truncate">
+                <div className="relative flex-1 min-h-0 w-full">
+                  <CoverImage
+                    src={IMG_190[i]}
+                    alt=""
+                    sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 17vw"
+                    quality={72}
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <span className="relative z-10 flex-shrink-0 block p-2 text-xs font-medium text-gray-700 group-hover:text-[#34C759] text-center truncate bg-white border-t border-gray-100">
                   {title}
                 </span>
               </Link>

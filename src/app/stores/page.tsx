@@ -6,6 +6,7 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import type { Store } from "@/types/store";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import StoreLogo from "@/components/StoreLogo";
 
 const SITE_NAME = "SeemPromo";
 const NUMERIC_LABEL = "0-9";
@@ -228,18 +229,8 @@ export default function StoresPage() {
                                   onClick={handleStoreClick}
                                   className="flex flex-col items-center p-4 rounded-lg bg-white border border-gray-200 shadow-sm hover:shadow-md hover:border-[#34C759]/30 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#34C759] focus-visible:ring-offset-2"
                                 >
-                                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg bg-gray-50 flex items-center justify-center overflow-hidden mb-3 flex-shrink-0">
-                                    {store.logoUrl ? (
-                                      <img
-                                        src={store.logoUrl}
-                                        alt=""
-                                        className="w-full h-full object-contain p-1"
-                                      />
-                                    ) : (
-                                      <span className="text-2xl font-bold text-gray-400">
-                                        {(store.name ?? "?").charAt(0)}
-                                      </span>
-                                    )}
+                                  <div className="mb-3 flex justify-center flex-shrink-0">
+                                    <StoreLogo name={store.name ?? "?"} logoUrl={store.logoUrl} size="xl" rounded="lg" />
                                   </div>
                                   <p className="text-center font-semibold text-gray-800 text-sm line-clamp-2">
                                     {store.name ?? "–"}

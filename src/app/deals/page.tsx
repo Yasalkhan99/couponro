@@ -7,6 +7,7 @@ import type { Store } from "@/types/store";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CouponPopup from "@/components/CouponPopup";
+import StoreLogo from "@/components/StoreLogo";
 
 const SITE_NAME = "SeemPromo";
 const PER_PAGE = 12;
@@ -317,13 +318,7 @@ function FeaturedDealCard({
       <div className="flex flex-col sm:flex-row gap-4 p-4 sm:p-5 items-start sm:items-center">
         <div className="flex flex-col items-center sm:items-start gap-2 flex-shrink-0 sm:w-28">
           <Link href={`/stores/${encodeURIComponent(slug)}`} className="block rounded-lg transition-transform hover:opacity-90">
-            <div className="w-16 h-16 rounded-lg bg-slate-100 flex items-center justify-center overflow-hidden">
-              {logoUrl ? (
-                <img src={logoUrl} alt={deal.name ?? ""} className="w-full h-full object-contain" />
-              ) : (
-                <span className="text-xl font-bold text-slate-500">{deal.name?.charAt(0) ?? "?"}</span>
-              )}
-            </div>
+            <StoreLogo name={deal.name ?? "?"} logoUrl={logoUrl} size="xl" rounded="lg" />
           </Link>
           <span className="text-sm font-medium text-black">{dealLabel}</span>
         </div>

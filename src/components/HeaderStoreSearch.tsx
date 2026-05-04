@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { Store } from "@/types/store";
+import StoreLogo from "@/components/StoreLogo";
 
 /** Name or slug starts with query, or any word in the store name starts with query (e.g. "Best Amazon" + "a" → Amazon). */
 function storeMatchesPrefix(s: Store, q: string): boolean {
@@ -154,17 +155,7 @@ export default function HeaderStoreSearch({ variant, onPickStore }: Props) {
                       onClick={afterPick}
                       className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-800 hover:bg-[#34C759]/10"
                     >
-                      {s.logoUrl ? (
-                        <img // eslint-disable-line @next/next/no-img-element -- remote store logos
-                          src={s.logoUrl}
-                          alt=""
-                          className="h-8 w-8 flex-shrink-0 rounded object-contain bg-white"
-                        />
-                      ) : (
-                        <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded bg-gray-100 text-xs text-gray-400">
-                          —
-                        </span>
-                      )}
+                      <StoreLogo name={s.name ?? "?"} logoUrl={s.logoUrl} size="xs" rounded="md" />
                       <span className="min-w-0 truncate font-medium">{s.name}</span>
                     </Link>
                   </li>

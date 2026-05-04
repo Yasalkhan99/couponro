@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import type { Store } from "@/types/store";
 import CouponPopup from "@/components/CouponPopup";
+import StoreLogo from "@/components/StoreLogo";
 
 const SITE_NAME = "SeemPromo";
 type SortBy = "newest" | "popularity" | "ending_soon" | "expired";
@@ -110,15 +111,9 @@ export default function StorePageContent({
           <div className="lg:sticky lg:top-24 space-y-6">
             {/* Store logo + rating */}
             <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm text-center">
-              {store?.logoUrl ? (
-                <div className="w-32 h-32 mx-auto mb-3 rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center p-2">
-                  <img src={store.logoUrl} alt={displayName} className="w-full h-full object-contain" />
-                </div>
-              ) : (
-                <div className="w-32 h-32 mx-auto mb-3 rounded-xl bg-gray-100 flex items-center justify-center">
-                  <span className="text-3xl font-bold text-gray-500">{displayName?.charAt(0) ?? "?"}</span>
-                </div>
-              )}
+              <div className="mx-auto mb-3 flex justify-center">
+                <StoreLogo name={displayName} logoUrl={store?.logoUrl} size="3xl" rounded="xl" />
+              </div>
               <div className="flex items-center justify-center gap-1 text-amber-400" aria-hidden>
                 {[1, 2, 3, 4, 5].map((i) => (
                   <span key={i}>★</span>
@@ -198,13 +193,7 @@ export default function StorePageContent({
                         href={`/stores/${encodeURIComponent(getStoreSlug(s))}`}
                         className="flex items-center gap-3 rounded-lg p-2 hover:bg-gray-50 text-gray-700 hover:text-[#34C759] transition-colors"
                       >
-                        <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden flex-shrink-0">
-                          {s.logoUrl ? (
-                            <img src={s.logoUrl} alt={s.name ?? ""} className="w-full h-full object-contain" />
-                          ) : (
-                            <span className="font-bold text-gray-500 text-sm">{s.name?.charAt(0) ?? "?"}</span>
-                          )}
-                        </div>
+                        <StoreLogo name={s.name ?? "?"} logoUrl={s.logoUrl} size="2xs" rounded="lg" />
                         <span className="text-sm font-medium">{s.name ?? "–"} Coupons</span>
                       </Link>
                     </li>
@@ -394,13 +383,7 @@ function StoreCouponCard({
     <article className="group w-full rounded-none border border-gray-300 bg-white p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow">
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
         <div className="flex gap-4 flex-1 min-w-0">
-          <div className="flex-shrink-0 w-20 h-20 rounded-none bg-gray-100 flex items-center justify-center overflow-hidden p-1 border border-gray-200">
-            {logoUrl ? (
-              <img src={logoUrl} alt={displayName} className="w-full h-full object-contain" />
-            ) : (
-              <span className="text-gray-500 font-bold text-lg">{displayName?.charAt(0) ?? "?"}</span>
-            )}
-          </div>
+          <StoreLogo name={displayName} logoUrl={logoUrl} size="xl" rounded="none" />
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <h3 className="font-bold text-gray-900 text-base">{title}</h3>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Store } from "@/types/store";
 import CouponCard from "@/components/CouponCard";
 import CouponCodesSection from "@/components/CouponCodesSection";
+import StoreLogo from "@/components/StoreLogo";
 
 export default function HomeContent() {
   const [stores, setStores] = useState<Store[]>([]);
@@ -160,12 +161,8 @@ export default function HomeContent() {
                 href={`/stores/${encodeURIComponent(s.slug || s.id)}`}
                 className="rounded-xl border-2 border-white bg-white p-4 shadow-sm hover:shadow-md hover:border-soft-cyan/50 transition-all flex flex-col items-center text-center"
               >
-                <div className="w-16 h-16 rounded-lg bg-almond flex items-center justify-center overflow-hidden mb-2">
-                  {s.logoUrl ? (
-                    <img src={s.logoUrl} alt={s.name} className="w-full h-full object-contain" />
-                  ) : (
-                    <span className="text-xl font-bold text-rebecca">{s.name?.charAt(0) ?? "?"}</span>
-                  )}
+                <div className="mb-2 flex justify-center">
+                  <StoreLogo name={s.name ?? "?"} logoUrl={s.logoUrl} size="xl" rounded="xl" />
                 </div>
                 <span className="font-semibold text-space text-sm">{s.name}</span>
                 <span className="text-xs text-rebecca mt-0.5">{s.couponCount ?? 0} Coupons</span>

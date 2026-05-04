@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import type { Store } from "@/types/store";
+import StoreLogo from "@/components/StoreLogo";
 
 function getCode(c: Store): string {
   const code = c.couponCode ?? (c as Record<string, unknown>).coupon_code ?? "";
@@ -126,13 +127,7 @@ export default function CouponPopup({ coupon, onClose, storeLogoUrl, fallbackUrl
 
           {/* Brand: logo + name */}
           <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50/50 px-3 py-2.5 mb-4">
-            <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center overflow-hidden shrink-0">
-              {logoUrl ? (
-                <img src={logoUrl} alt="" className="w-full h-full object-contain" />
-              ) : (
-                <span className="text-sm font-bold text-slate-500">{storeName.charAt(0)}</span>
-              )}
-            </div>
+            <StoreLogo name={storeName} logoUrl={logoUrl} size="xs" rounded="lg" />
             <span className="font-medium text-slate-800">{storeName}</span>
           </div>
 
