@@ -43,12 +43,6 @@ export async function GET(request: NextRequest) {
       const q = searchParams.get("q") ?? "";
       const codesFirst = searchParams.get("codes_first") === "1" || searchParams.get("codesFirst") === "true";
       const fresh = searchParams.get("fresh") === "1" || searchParams.get("fresh") === "true";
-      const sortParam = searchParams.get("sort") ?? searchParams.get("sortBy") ?? "newest";
-      const sortBy = ["newest", "popularity", "ending_soon", "expired"].includes(sortParam)
-        ? (sortParam as "newest" | "popularity" | "ending_soon" | "expired")
-        : "newest";
-      const typeParam = searchParams.get("type") ?? "all";
-      const type = ["code", "deal", "all"].includes(typeParam) ? (typeParam as "code" | "deal" | "all") : "all";
       const { coupons, total } = await withTimeout(
         getCouponsPaginated(
           {
@@ -56,9 +50,7 @@ export async function GET(request: NextRequest) {
             limit: limitNum,
             status: status === "enable" || status === "disable" ? status : "all",
             search: q,
-            codesFirst: type === "deal" ? false : codesFirst,
-            sortBy,
-            type,
+            codesFirst,
           },
           fresh
         ),
@@ -109,6 +101,8 @@ export async function POST(request: NextRequest) {
       couponType: body?.couponType ?? "code",
       couponCode: body?.couponCode ?? "",
       couponTitle: body?.couponTitle ?? "",
+      showCodeButtonText:
+        typeof body?.showCodeButtonText === "string" ? body.showCodeButtonText.trim() || undefined : undefined,
       badgeLabel: body?.badgeLabel ?? undefined,
       priority: typeof body?.priority === "number" ? body.priority : 0,
       active: body?.active !== false,
@@ -152,6 +146,8 @@ export async function PUT(request: NextRequest) {
       couponType: body?.couponType ?? "code",
       couponCode: body?.couponCode ?? "",
       couponTitle: body?.couponTitle ?? "",
+      showCodeButtonText:
+        typeof body?.showCodeButtonText === "string" ? body.showCodeButtonText.trim() || undefined : undefined,
       badgeLabel: body?.badgeLabel ?? undefined,
       priority: typeof body?.priority === "number" ? body.priority : 0,
       active: body?.active !== false,

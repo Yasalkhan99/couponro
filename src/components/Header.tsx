@@ -4,20 +4,17 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import HeaderPromoStrip from "./HeaderPromoStrip";
-import HeaderStoreSearch from "./HeaderStoreSearch";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/stores", label: "All Stores" },
   { href: "/coupons", label: "Coupons" },
-  { href: "/deals", label: "Deals" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
+  { href: "/stores", label: "Stores" },
+  { href: "/freeshipping", label: "Free Shipping" },
+  { href: "/blog", label: "Blogs" },
+  { href: "/contact", label: "Contact Us" },
 ];
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -26,156 +23,130 @@ export default function Header() {
     return () => document.body.classList.remove("overflow-hidden");
   }, [menuOpen]);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+  /* Close mobile menu when navigating to another page so content doesn’t stay behind menu */
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
 
   return (
-    <header id="site-header" className="sticky top-0 z-30 bg-white border-b border-gray-200/80 shadow-sm">
+    <header className="bg-rebecca text-white">
       <HeaderPromoStrip />
-      <div
-        className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 transition-shadow duration-200 ${
-          scrolled ? "shadow-sm" : ""
-        }`}
-      >
-        <div className="flex items-center justify-between h-16 gap-4">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center flex-shrink-0 gap-2"
-            aria-label="SeemPromo Home"
-          >
-            <img
-              src="/seempromo-logo.svg"
-              alt="SeemPromo"
-              className="h-11 sm:h-12 w-auto object-contain max-w-[200px] sm:max-w-[240px]"
-            />
-          </Link>
+      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 py-3 sm:py-0 sm:h-24 flex items-center justify-between md:justify-start border-t border-white/10 gap-2 md:gap-4">
+        <Link href="/" className="flex items-center h-14 sm:h-24 py-1 flex-shrink-0" aria-label="Couponro Home">
+          <img
+            src="/couponro-logo.svg"
+            alt="Couponro"
+            className="h-12 sm:h-full sm:max-h-24 w-auto object-contain object-left max-w-[200px] sm:max-w-none"
+          />
+        </Link>
 
-          {/* Desktop nav */}
-          <nav
-            className="hidden lg:flex flex-1 items-center justify-center gap-1 min-w-0"
-            aria-label="Main navigation"
-          >
-            {navLinks.map(({ href, label }) => {
-              const isActive =
-                pathname === href ||
-                (href !== "/" && pathname.startsWith(href));
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`relative px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-                    isActive
-                      ? "text-[#34C759] bg-[#34C759]/10"
-                      : "text-gray-600 hover:text-[#34C759] hover:bg-gray-50"
-                  }`}
-                >
-                  {label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Desktop search */}
-          <div className="hidden md:flex flex-1 items-center justify-end min-w-0 max-w-xs">
-            <HeaderStoreSearch variant="desktop" />
-          </div>
-
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            onClick={() => setMenuOpen(true)}
-            aria-label="Open menu"
-            className="lg:hidden p-2.5 rounded-lg text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition-colors"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+        {/* Desktop/tablet: nav links – always visible from md up */}
+        <nav className="hidden md:flex flex-1 items-center justify-center gap-6 lg:gap-8 xl:gap-10 min-w-0 shrink">
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="relative text-sm font-medium text-white/90 hover:text-white py-2 px-1 transition-all duration-200 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-soft-cyan after:transition-all after:duration-200 hover:after:w-full whitespace-nowrap"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
+              {label}
+            </Link>
+          ))}
+        </nav>
+        {/* Desktop/tablet: search bar – always visible from md up */}
+        <div className="hidden md:flex flex-1 items-center justify-end min-w-0 max-w-[280px] shrink-0">
+          <form action="/coupons" method="GET" className="flex w-full max-w-[260px]">
+            <input
+              type="search"
+              name="q"
+              placeholder="Search store or brand"
+              className="flex-1 min-w-0 rounded-l-lg border border-white/40 bg-white/15 px-4 py-2.5 text-sm text-white placeholder:text-white/80 focus:bg-white/20 focus:border-soft-cyan focus:outline-none focus:ring-2 focus:ring-soft-cyan/50"
+            />
+            <button
+              type="submit"
+              aria-label="Search"
+              className="rounded-r-lg bg-lobster px-3 py-2.5 text-white hover:opacity-90 flex-shrink-0"
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+          </form>
         </div>
+
+        {/* Mobile only: hamburger */}
+        <button
+          type="button"
+          onClick={() => setMenuOpen(true)}
+          aria-label="Open menu"
+          className="md:hidden flex-shrink-0 p-2 rounded-lg text-white hover:bg-white/10"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
       </div>
 
-      {/* Mobile overlay */}
+      {/* Mobile sidebar overlay */}
       {menuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 bg-black/50 md:hidden"
           aria-hidden="true"
           onClick={() => setMenuOpen(false)}
         />
       )}
 
-      {/* Mobile drawer */}
+      {/* Mobile sidebar drawer */}
       <div
-        className={`fixed top-0 right-0 z-50 h-full w-full max-w-[300px] bg-white shadow-2xl transform transition-transform duration-300 ease-out lg:hidden ${
+        className={`fixed top-0 right-0 z-50 h-full w-full max-w-[280px] bg-rebecca shadow-xl transform transition-transform duration-300 ease-out md:hidden ${
           menuOpen ? "translate-x-0" : "translate-x-full"
         }`}
         aria-modal="true"
         aria-label="Menu"
       >
         <div className="flex flex-col h-full pt-6 pb-8 px-5">
-          <div className="flex items-center justify-between mb-6">
-            <span className="text-gray-800 font-semibold">Menu</span>
+          <div className="flex items-center justify-between mb-8">
+            <span className="text-white font-semibold">Menu</span>
             <button
               type="button"
               onClick={() => setMenuOpen(false)}
               aria-label="Close menu"
-              className="p-2.5 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-colors"
+              className="p-2 rounded-lg text-white hover:bg-white/10"
             >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
-          <nav className="flex flex-col gap-0.5">
-            {navLinks.map(({ href, label }) => {
-              const isActive =
-                pathname === href ||
-                (href !== "/" && pathname.startsWith(href));
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  onClick={() => setMenuOpen(false)}
-                  className={`py-3 px-4 rounded-lg font-medium transition-colors ${
-                    isActive
-                      ? "text-[#34C759] bg-[#34C759]/10"
-                      : "text-gray-700 hover:bg-gray-50 hover:text-[#34C759]"
-                  }`}
-                >
-                  {label}
-                </Link>
-              );
-            })}
+          <nav className="flex flex-col gap-1">
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                className="text-white font-medium py-3 px-3 rounded-lg hover:bg-white/10 hover:text-soft-cyan transition-colors"
+              >
+                {label}
+              </Link>
+            ))}
           </nav>
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <HeaderStoreSearch variant="mobile" onPickStore={() => setMenuOpen(false)} />
+          <div className="mt-6 pt-6 border-t border-white/20">
+            <form action="/" method="GET" className="flex" onSubmit={() => setMenuOpen(false)}>
+              <input
+                type="search"
+                name="q"
+                placeholder="Search store or brand"
+                className="flex-1 min-w-0 rounded-l-lg border border-white/40 bg-white/15 px-4 py-3 text-sm text-white placeholder:text-white/70 focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-soft-cyan/50"
+              />
+              <button
+                type="submit"
+                aria-label="Search"
+                className="rounded-r-lg bg-lobster px-4 py-3 text-white hover:opacity-90 flex-shrink-0"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </form>
           </div>
         </div>
       </div>
