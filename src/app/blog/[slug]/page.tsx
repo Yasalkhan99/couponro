@@ -7,7 +7,7 @@ import { getSanityPostBySlug, getSanityPostSlugs } from "@/lib/sanity.blog";
 import { getStoreBlogContent } from "@/lib/store-blog-content";
 import TouchTunesPost from "../posts/TouchTunesPost";
 import StoreBlogPost from "../posts/StoreBlogPost";
-import CouponroSavingTipsPost from "../posts/CouponroSavingTipsPost";
+import SeemPromoSavingTipsPost from "../posts/SeemPromoSavingTipsPost";
 import StoresGuidePost from "../posts/StoresGuidePost";
 import FreeShippingPost from "../posts/FreeShippingPost";
 import DealsGuidePost from "../posts/DealsGuidePost";
@@ -95,7 +95,7 @@ export default async function BlogPostPage({ params }: Props) {
     if (slug === "stores-coupon-deals-guide-2026") {
       content = <StoresGuidePost />;
     } else if (slug === "seempromo-saving-tips-coupon-codes-guide-2026") {
-      content = <CouponroSavingTipsPost />;
+      content = <SeemPromoSavingTipsPost />;
     } else if (slug === "touchtunes-coupon-codes-deals-discounts-2026") {
       content = <TouchTunesPost />;
     } else if (slug === "free-shipping-deals-guide-2026") {

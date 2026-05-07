@@ -181,7 +181,7 @@ export default function StorePageContent({
               How to Use {displayName} Coupon Codes
             </h3>
             <p className="text-rebecca leading-relaxed">
-              Copy the code from Couponro and paste it at checkout on {displayName}&apos;s website to get the discount. Some offers are deal links—click &quot;Get Deal&quot; to go to the store and the offer will apply automatically.
+              Copy the code from SeemPromo and paste it at checkout on {displayName}&apos;s website to get the discount. Some offers are deal links—click &quot;Get Deal&quot; to go to the store and the offer will apply automatically.
             </p>
           </section>
         )}
@@ -191,7 +191,7 @@ export default function StorePageContent({
             How to Never Miss a {displayName} Coupon
           </h3>
           <p className="text-rebecca leading-relaxed">
-            Bookmark this page and check back often. We update {displayName} coupons and deals regularly. You can also visit Couponro&apos;s homepage to see the latest offers from all your favorite stores.
+            Bookmark this page and check back often. We update {displayName} coupons and deals regularly. You can also visit SeemPromo&apos;s homepage to see the latest offers from all your favorite stores.
           </p>
         </section>
 
