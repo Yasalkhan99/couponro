@@ -45,6 +45,14 @@ export const getStores = unstable_cache(
   { revalidate: CACHE_REVALIDATE, tags: ["stores"] }
 );
 
+/**
+ * Fresh stores fetch (no Next cache). Useful on hosts where tag revalidation
+ * can lag, causing newly created stores to 404 on the detail page briefly.
+ */
+export async function getStoresFresh(): Promise<Store[]> {
+  return getStoresRaw();
+}
+
 function requireSupabaseCoupons() {
   const supabase = getSupabaseCoupons();
   if (!supabase) {
