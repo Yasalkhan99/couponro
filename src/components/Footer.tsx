@@ -15,11 +15,11 @@ export default function Footer() {
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
             {/* Logo + Country */}
             <div className="lg:col-span-1">
-              <Link href="/" className="inline-flex items-center flex-shrink-0 mb-4 block" aria-label="Couponro Home">
+              <Link href="/" className="inline-flex items-center flex-shrink-0 mb-4 block" aria-label="SeemPromo Home">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/couponro%20logo%20svg.svg"
-                  alt="Couponro"
+                  src="/seempromo-logo.svg"
+                  alt="SeemPromo"
                   className="h-12 sm:h-14 w-auto max-h-20 object-contain object-left max-w-[180px]"
                 />
               </Link>
@@ -83,7 +83,7 @@ export default function Footer() {
             <div className="sm:col-span-2 lg:col-span-1">
               <h3 className="text-sm font-bold text-white uppercase tracking-wide mb-4">About</h3>
               <p className="text-sm text-white/95 leading-relaxed max-w-sm">
-                Couponro tracks coupon codes from online merchants to help consumers save money. We may earn a commission when you use one of our coupons/links to make a purchase. You should check any coupon or promo code of interest on the merchant website to ensure validity before making a purchase.
+                SeemPromo tracks coupon codes from online merchants to help consumers save money. We may earn a commission when you use one of our coupons/links to make a purchase. You should check any coupon or promo code of interest on the merchant website to ensure validity before making a purchase.
               </p>
               <Link href="/accessibility" className="mt-3 inline-block text-sm text-white hover:text-lobster transition-colors">
                 Open Accessibility Tools
@@ -96,7 +96,7 @@ export default function Footer() {
       {/* Bottom strip – copyright (pink) */}
       <div className="bg-lobster text-white">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-4 text-center text-xs sm:text-sm" suppressHydrationWarning>
-          Copyright © {currentYear} Couponro LLC, A System1 Company
+          Copyright © {currentYear} SeemPromo. All rights reserved.
         </div>
       </div>
     </footer>
