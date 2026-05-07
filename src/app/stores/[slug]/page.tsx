@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { unstable_noStore as noStore } from "next/cache";
 import { getStoresFresh, getCouponsRaw, slugify } from "@/lib/stores";
 import { getBlogSlugForStore } from "@/lib/blog-posts";
 import type { Store } from "@/types/store";
@@ -8,6 +9,8 @@ import Footer from "@/components/Footer";
 import StorePageContent from "@/components/StorePageContent";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const fetchCache = "force-no-store";
 
 function normalizeSlug(s: string) {
   return s.toLowerCase().trim().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
@@ -59,6 +62,7 @@ async function getStoreData(slug: string): Promise<{
   displayName: string;
   otherStores: Store[];
 }> {
+  noStore();
   const raw = slug.toLowerCase().trim();
   // Fresh coupons from DB — avoids unstable_cache occasionally serving stale/empty lists on hard refresh (serverless).
   const [stores, coupons] = await Promise.all([getStoresFresh(), getCouponsRaw()]);
